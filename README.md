@@ -69,6 +69,46 @@ SYSCONF::$MOD_ALIASES['admin'] = [
 ];
 ```
 
+## Nginx Example config
+```
+#project1.loc
+server {
+	listen 80;
+	default_type text/html;
+	server_name project1.loc;
+	root /www/projects/project1/web;
+
+    location ~* ^/pub/(.+\.(?:gif|jpe?g|png|js|css|woff|ttf|svg|eot|html|htm|txt))$
+    {
+         alias /www/kernel/PUB/$1;
+         access_log off;
+         expires 10d;
+    }
+
+	index index.php;
+
+	location ~* ^.+\.(txt|jpe?g|gif|png|ico|css|txt|bmp|rtf|js|svg|eot|ttf|woff|html?)$
+	{
+         access_log off;
+         add_header Cache-Control "public, max-age=31536000, immutable";
+	}
+	
+	#все запросы направить на index.php
+	location / {
+		rewrite ^/(.*)$ /index.php;
+	}
+
+	location  ~ \.php$ {
+		include snippets/fastcgi-php.conf;
+		fastcgi_pass unix:/run/php/php7.3-fpm.sock;
+		fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+	}
+
+
+}
+```
+
+
 ## ToDo
 * add class LE_SQLITE - иногда нужно делать мини-приложения типа домашней бухгалтерии
 * add class LE_CALENDAR - простейшие операции с датами, удобно для формирования всяких графиков платежей, например для кредитных калькуляторов
