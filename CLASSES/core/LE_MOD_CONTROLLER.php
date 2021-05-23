@@ -117,7 +117,7 @@ abstract class LE_MOD_CONTROLLER
         //возвращать массив ответа как есть, не оборачивая в data
         if (isset($res['as_is']) && $res['as_is'])
         {
-            unset($res['as_id']);
+            unset($res['as_is']);
             $out = $res;
         }
         
