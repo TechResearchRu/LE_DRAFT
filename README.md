@@ -70,7 +70,7 @@ SYSCONF::$MOD_ALIASES['admin'] = [
 ```
 
 ## Nginx Example config
-```
+```nginx
 #project1.loc
 server {
 	listen 80;
