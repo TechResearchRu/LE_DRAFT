@@ -40,6 +40,7 @@
 ```bash
 cd my_app
 mkdir -p {CLASSES,MODULES,TPL,sessions,web} web/assets/{css,js,etc} web/pub_data
+touch app_conf.php web/index.php
 ```
 
 ### index.php - точка входа
