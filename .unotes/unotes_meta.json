@@ -1,0 +1,48 @@
+{
+  "name": "",
+  "isOrdered": true,
+  "folders": {
+    "CLASSES": {
+      "name": "CLASSES",
+      "isOrdered": true,
+      "folders": {
+        "core": {
+          "name": "core",
+          "isOrdered": true,
+          "folders": {},
+          "files": {
+            "doc__LE_FS": 0
+          }
+        }
+      },
+      "files": {}
+    },
+    "LE": {
+      "name": "LE",
+      "isOrdered": true,
+      "folders": {},
+      "files": {
+        "core_fuctions": 0
+      }
+    },
+    "MODULES": {
+      "name": "MODULES",
+      "isOrdered": true,
+      "folders": {},
+      "files": {}
+    },
+    "PUB": {
+      "name": "PUB",
+      "isOrdered": true,
+      "folders": {},
+      "files": {}
+    },
+    "TPL": {
+      "name": "TPL",
+      "isOrdered": true,
+      "folders": {},
+      "files": {}
+    }
+  },
+  "files": {}
+}

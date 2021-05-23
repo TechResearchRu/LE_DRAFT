@@ -1,0 +1,26 @@
+This project based on many open source projects.
+
+
+#######################
+## CSS, Images, Icons #
+#######################
+1. normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css
+2. Google Material Icons
+3. Hamburger menu https://atuin.ru/blog/gamburger-ikonki-s-animirovannymi-perexodami/
+
+
+
+
+#######################
+# JS Scipts and libs  #
+#######################
+1. JQuery v3.6 https://jquery.com/
+2. CkEditor5 https://ckeditor.com/ckeditor-5/download/
+3. ToastUI https://ui.toast.com/tui-editor
+
+
+
+########################
+# PHP Scripts and Libs #
+########################
+1. PHP Spreadsheet
