@@ -1,5 +1,5 @@
 # LE_CURL
-&copy; by Pavel Belyaev
+&copy; by Pavel Belyaev, LE Framework, Tech-Research.ru
 
 ## About
 Данный класс создан для выполнения http запросов, удобно для работы с RestApi, для скачивания любого контента по сети итд...
