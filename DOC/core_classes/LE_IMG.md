@@ -1,3 +1,4 @@
+[< Documentation](../)
 # LE_IMG class by Pavel Belyaev
 
 Данный класс создан для простейших манипуляций с изображениями в формате jpeg, png и gif.
