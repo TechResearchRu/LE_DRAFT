@@ -29,4 +29,4 @@
 * LE_MYSQL - класс для работы с базой MYSQL
 * LE_SQLITE - класс для работы с базой SQLITE
 * LE_TPL - шаблонизатор
-* [LE_СURL](core_classes/LE_СURL.md) - класс для выполнения HTTP запросов, работы с API и др, обертка над cURL
+* [LE_СURL](core_classes/LE_CURL.md) - класс для выполнения HTTP запросов, работы с API и др, обертка над cURL
