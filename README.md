@@ -134,6 +134,6 @@ server {
 > Весь процесс разработки логируется на [YouTube в виде видеоуроков](https://www.youtube.com/watch?v=hEfP0tYnmd4&list=PL0WBDVO8h9xcHuyw19JnOVjbxS-p6X3VF)
 
 
-## Документация
-* [LE_IMG](CLASSES/core/LE_IMG.md)
+## Документация базовых классов
+* [LE_IMG](CLASSES/core/LE_IMG.md) - класс для работы с картинками
 * 
