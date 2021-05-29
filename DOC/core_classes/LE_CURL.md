@@ -4,6 +4,8 @@
 ## About
 Данный класс создан для выполнения http запросов, удобно для работы с RestApi, для скачивания любого контента по сети итд...
 
+Я использую этот класс для работы с Api яндекс облака, VKApi и например для мониторинга страниц сайта (какие коды отдает, корректен ли ответ), CURL вообще очень удобная штука, этот класс лишь обертка для удобства
+
 > Для корректной работы требуются модули iconv и curl
 
 ## How to use
@@ -68,7 +70,7 @@ $params = [
   'post'=>$post
 ];
 
-$CL->query($params);
+$res = $CL->query($params);
 
 ```
 
@@ -82,7 +84,7 @@ $params = [
   'method'=>'PUT'
 ];
 
-$CL->query($params);
+$res = $CL->query($params);
 
 ```
 
@@ -96,7 +98,45 @@ $params = [
   'method'=>'PUT' //указание метода обязательно, например POST
 ];
 
-$CL->query($params);
+$res = $CL->query($params);
 
 ```
+
+#### Отправка файлов через POST
+> не тестировал еще
+```php
+$file1 = curl_file_create($filename ,$mime_type = null , $posted_filename = null );
+
+$post = ['field1'=>'val1','field2'=>'val2','image'=>$file1];
+
+$params = [
+  'url'=>'https://example.com/index.php',
+  'post'=>$post,
+  'headers' => ["Content-Type" => "multipart/form-data"] 
+];
+
+$res = $CL->query($params);
+
+```
+
+#### Сохранение в файл, например, скачать картинку или страницу сайта в файл
+```
+$CL->to_file($params,$path,$filename);
+```
+* `$params` - может быть строкой с url или списком параметров, вдруг вам нужно заголовки или REFERRER передать свой
+* `$path` - папка сохранения
+* `$filename` - имя файла в который сохранится, если не передано, то определит из url
+
+
+
+### Параметры выполнения запросов
+
+Параметр  | Описание | Тип
+------------- | ------------- | ---------
+url  | Полный url с указанием протокола | string
+headers  | Заголовки запроса | array
+get_redirect  | Получение url редиректа | bool
+method  | указание метода (PUT,DEL,POST,GET) | string
+post  | Поля POST | array
+raw | Данные отправляемые в body как есть, например, JSON | string
 
