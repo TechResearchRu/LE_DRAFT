@@ -24,11 +24,14 @@ $CL->encode="cp1251"; // при указании перекодирует из �
 $CL->cook_file="/path/to/cook.txt"; //если не указать, то куки не будет принимать
 ```
 
-### Выполнение запроса
+### Выполнение запросов
 #### Простой запрос GET
 
 ```php
-$params = ['url'=>'https://example.com/index.php']
+$params = [
+  'url'=>'https://example.com/index.php',
+  'fer'=>'https://fromsite' // указание HTTP_REFERRER
+];
 
 $html = $CL->query($params);
 ```
@@ -47,7 +50,7 @@ $html = $CL->query("https://example.com/index.php");
 $params = [
   'url'=>'https://example.com/index.php',
   'get_redirect'=>1
-]
+];
 
 $CL->query($params);
 
@@ -55,4 +58,45 @@ $url = $CL->redirect;
 
 ```
 
+#### Отправка простого POST (form)
+
+```php
+$post = ['field1'=>'val1','field2'=>'val2'];
+
+$params = [
+  'url'=>'https://example.com/index.php',
+  'post'=>$post
+];
+
+$CL->query($params);
+
+```
+
+#### Отправка другими методами, например, PUT
+```php
+$post = ['field1'=>'val1','field2'=>'val2'];
+
+$params = [
+  'url'=>'https://example.com/index.php',
+  'post'=>$post,
+  'method'=>'PUT'
+];
+
+$CL->query($params);
+
+```
+
+#### Отправка не в полях POST, а, например, JSON
+```php
+$data = "{'field1':'val1','field2':'val2'}"; //юзайте json_encode
+
+$params = [
+  'url'=>'https://example.com/index.php',
+  'raw'=>$data,
+  'method'=>'PUT' //указание метода обязательно, например POST
+];
+
+$CL->query($params);
+
+```
 
