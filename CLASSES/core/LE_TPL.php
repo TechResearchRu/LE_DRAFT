@@ -38,9 +38,6 @@ class LE_TPL {
         $path_app = realpath((APPDIR."TPL".DS.$path));
         $path_sys = realpath((SYSDIR."TPL".DS.$path));
 
-        //echo APPDIR.$path.BR;
-        //echo SYSDIR.$path.BR;
-
         if (is_file($path_app)) return $path_app;
         if (is_file($path_sys)) return $path_sys;
 
@@ -48,9 +45,7 @@ class LE_TPL {
 	}
 
     public function display($prefix=false,$main_tpl="main")
-	{
-		//global $config,$db;
-        
+	{        
         $tpl = &$this;
 
 		if ($this->debug) echo_arr($this->load_tpls);
