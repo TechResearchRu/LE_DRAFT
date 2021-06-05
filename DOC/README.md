@@ -31,3 +31,4 @@
 * LE_TPL - шаблонизатор
 * [LE_СURL](core_classes/LE_CURL.md) - класс для выполнения HTTP запросов, работы с API и др, обертка над cURL
 * [LE_TIME](core_classes/LE_TIME.md) - класс для работы с датами и временем
+* [LE_ALC](core_classes/LE_ALC.md) - класс для аутентификации пользователей и контроля доступом (Access Level Control)

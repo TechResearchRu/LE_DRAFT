@@ -36,6 +36,7 @@ include I."db_init.php"; //mysql
 if (ISWEB):
     include I."session.php";
     LE::$TPL = new LE_TPL; //шаблонизатор
+    LE::$ALC = new LE_ALC; //контроль доступа
     include I."load_mod.php"; //load module
     LE::$TPL->display();
     exit();
