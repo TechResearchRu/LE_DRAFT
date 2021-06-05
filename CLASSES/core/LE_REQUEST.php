@@ -41,9 +41,11 @@ class LE_REQUEST {
         $query= isset($s['REQUEST_URI']) ? $s['REQUEST_URI'] : '';
 
         $query_clr =  preg_replace('!\?.*?$!','',$query);
+
+        $full_url = $scheme."://".$host_full.$query;
         
 
-        return compact('ssl','port','scheme','standart_port','host','host_full','query','query_clr','protocol');
+        return compact('ssl','port','scheme','standart_port','host','host_full','query','query_clr','protocol','full_url');
     }
 
 
