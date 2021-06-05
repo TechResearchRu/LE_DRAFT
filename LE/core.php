@@ -20,7 +20,8 @@ function echo_arr(&$arr) {
 /*core class*/
 class LE 
 {
-    public static $DB,$TPL,$CACHE,$QUERY_DATA_TYPE;
+    public static $DB,$TPL,$CACHE,$QUERY_DATA_TYPE,$FULL_URL;
+	public static $ALC;
     
     
     public static function DEF ($constant_name,$val=false)
