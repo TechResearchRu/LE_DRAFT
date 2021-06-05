@@ -71,7 +71,9 @@ class LE_MYSQL
 		$res = $this->l->query($s, $buf);
 
 		$e = ($this->l->error);
-		if (!empty($e)) $this->err(($this->c['debug'] ? $e . ' <br>(' . $s . ')' : 'ERR QUERY!!!'));
+		if (!empty($e)) $this->err(($this->debug ? $e . ' <br>(' . $s . ')' : 'ERR QUERY!!!'));
+
+		
 
 		unset($e, $buf);
 		return $this->answer($res, $type, $o);
@@ -241,6 +243,22 @@ class LE_MYSQL
 		return $id;
 	}
 
+	/*
+	public function SELECT($tbl,$fields,$where,$order)
+	{
+		$fields = $this->gen_f($fields);
+		$tbl = $this->prepare($tbl);
+
+
+
+		$sql = "SELECT f1, f2 FROM table WHERE a=5 ORDER BY f1 DESC LIMIT 1"
+		if ($fields===0) $f="*";
+		else 
+		{
+
+		}
+	}*/
+
 
     /*****************
     * custom queries *
@@ -274,5 +292,18 @@ class LE_MYSQL
     {
         return $this->query($s, false, ['val' => $v]);
     }
+
+	private function gen_f($f="*")
+	{
+		if (trim($f)=="*" || $f===0 || $f===false) return "*";
+		$f = explode(',',$f);
+		$cnt = count($f);
+
+		for($i=0;$i<$cnt;$i++) $f[$i] = '`'.trim($f[$i]).'`';
+
+		return implode(', ',$f);
+
+
+	}
 
 }
