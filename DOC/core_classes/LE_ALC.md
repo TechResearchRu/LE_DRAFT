@@ -1,5 +1,8 @@
+[< Documentation](../)
 # LE ALС - access level control
-В системе LE предусмотрены уровни доступа, эти уровни могут задаваться на уровне всего пространства (например админка или личный кабинет) и на уровне кокнкретных модулей, например простой менеджер не может добавлять администраторов сайта, а директор может.
+&copy; by Pavel Belyaev, LE Framework, Tech-Research.ru
+
+> В системе LE предусмотрены уровни доступа, эти уровни могут задаваться на уровне всего пространства (например админка или личный кабинет) и на уровне кокнкретных модулей, например простой менеджер не может добавлять администраторов сайта, а директор может.
 
 ## Хранение
 Все аккаунты хранятся в таблице `sys_accounts`
@@ -13,6 +16,25 @@ level | int 2 | уровень привелегий
 password | varchar 32 | пароль в формате md5, позже вероятно можно перейти на sha-256
 name | varchar 250 |Имя для отображения на сайте|
 data | JSON |Любые произвольные, обычно анкетные данные, например адрес, этаж, код от домофона, ссылка на соц сеть... 
+
+```sql
+CREATE TABLE `sys__accounts` (
+  `id` int(12) NOT NULL,
+  `login` varchar(200) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `level` int(2) NOT NULL DEFAULT 0,
+  `password` varchar(32) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `name` varchar(250) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `data` longtext CHARACTER SET utf8 COLLATE utf8_bin NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+ALTER TABLE `sys__accounts`
+  ADD PRIMARY KEY (`id`);
+
+ALTER TABLE `sys__accounts`
+  MODIFY `id` int(12) NOT NULL AUTO_INCREMENT;
+
+```
+
 
 ## Уровни доступа
 В конкретном приложении можно придумать свои уровни, но на стандартном решени будут вот такие уровни
@@ -38,3 +60,5 @@ $user_lev = LE::$ALC->set_lev(2);
 Помимо этого, указанная функция возвращает уровень доступа текущего пользователя, что позволяет кастомизировать меню, скрывать запрещенные пункты итд...
 
 Если пользователь не авторизован, то он получит форму для ввода логина и пароля, дальнейшее выполнение скрипта остановится.
+
+
