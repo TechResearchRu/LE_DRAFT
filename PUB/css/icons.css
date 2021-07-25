@@ -1,0 +1,22 @@
+[class^="lei_"],
+svg {
+    width: 1.2em;
+    height: 1.2em;
+    fill: currentColor;
+    vertical-align: -0.2em;
+}
+
+.lei_r {
+    margin-right: -0.35em;
+    margin-left: .2em;
+}
+
+.lei_l {
+    margin-left: -0.35em;
+    margin-right: .2em;
+}
+
+.lei_c {
+    margin-left: -0.3em;
+    margin-right: -0.3em;
+}

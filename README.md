@@ -86,52 +86,46 @@ SYSCONF::$MOD_ALIASES['admin'] = [
 ```nginx
 #project1.loc
 server {
-	listen 80;
-	default_type text/html;
-	server_name project1.loc;
-	root /www/projects/project1/web;
 
-    location ~* ^/pub/(.+\.(?:gif|jpe?g|png|js|css|woff|ttf|svg|eot|html|htm|txt))$
-    {
-         alias /www/kernel/PUB/$1;
-         access_log off;
-         expires 10d;
-    }
+listen 80;
+default_type text/html;
+server_name project1.loc;
+root /www/projects/project1/web;
 
-	index index.php;
+location ~* ^/pub/(.+\.(?:gif|jpe?g|png|js|css|woff|ttf|svg|eot|html|htm|txt))$
+{
+	alias /www/kernel/PUB/$1;
+	access_log off;
+	expires 10d;
+}
 
-	location ~* ^.+\.(txt|jpe?g|gif|png|ico|css|txt|bmp|rtf|js|svg|eot|ttf|woff|html?)$
-	{
-         access_log off;
-         add_header Cache-Control "public, max-age=31536000, immutable";
-	}
+index index.php;
+
+location ~* ^.+\.(txt|jpe?g|gif|png|ico|css|txt|bmp|rtf|js|svg|eot|ttf|woff|html?)$
+{
+	access_log off;
+	add_header Cache-Control "public, max-age=31536000, immutable";
+}
 	
-	#все запросы направить на index.php
-	location / {
-		rewrite ^/(.*)$ /index.php;
-	}
+#все запросы направить на index.php
+location / {
+	rewrite ^/(.*)$ /index.php;
+}
 
-	location  ~ \.php$ {
-		include snippets/fastcgi-php.conf;
-		fastcgi_pass unix:/run/php/php7.3-fpm.sock;
-		fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
-	}
+location  ~ \.php$ {
+	include snippets/fastcgi-php.conf;
+	fastcgi_pass unix:/run/php/php7.3-fpm.sock;
+	fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+}
 
 
 }
 ```
 
 
-## ToDo
-* add class **LE_SQLITE** - иногда нужно делать мини-приложения типа домашней бухгалтерии
-* add class **LE_CALENDAR** - простейшие операции с датами, удобно для формирования всяких графиков платежей, например для кредитных калькуляторов
-* add class **LE_FORMGEN** - генератор типовых формочек с заполнением полей данными из БД, удобно для быстрого клепания редакторов в админке
-* add class **LE_XML**, **LE_CSV** - чтение и генерация форматов для экспорта/импорта
-* внедрить сторонние библиотеки для работы с xls, xlsx (SimpleXLS, SimpleXLSX, PHPSpreadsheet, etc...)
-* слепить простейший UIKIT, должен состоять как из CSS, так и из JS и бэкендные функции на PHP для генерации всяких модальных окон, нужно еще переопределить всякие алерты и конфирмы на свои, чтобы все вписывалось в интерфейс
 
 
-> Весь процесс разработки логируется на [YouTube в виде видеоуроков](https://www.youtube.com/watch?v=hEfP0tYnmd4&list=PL0WBDVO8h9xcHuyw19JnOVjbxS-p6X3VF)
+> Весь процесс разработки логируется на [YouTube в виде видеоуроков](https://www.youtube.com/watch?v=hEfP0tYnmd4&list=PL0WBDVO8h9xcHuyw19JnOVjbxS-p6X3VF), но пока нет времени, так что следите за гитхабом. 
 
 
 

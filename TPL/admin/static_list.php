@@ -3,6 +3,25 @@ $st_cnf = &LE::$TPL->static_list;
 $st_dep = &LE::$TPL->static_dep;
 
 $st_cnf[] = [
+//    'mod'=>'default',
+    'pos'=>'top',
+    'type'=>'css',
+    'link'=>'/pub/css/icons.css'];
+
+$st_cnf[] = [
+//    'mod'=>'default',
+    'pos'=>'top',
+    'type'=>'css',
+    'link'=>'/pub/css/le_form.css'];
+
+$st_cnf[] = [
+//    'mod'=>'default',
+    'pos'=>'top',
+    'type'=>'css',
+    'link'=>'/pub/css/admin_interface.css'];
+
+
+$st_cnf[] = [
     'mod'=>'highlight.js',
     'pos'=>'top',
     'type'=>'css',
