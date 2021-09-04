@@ -6,6 +6,7 @@ if(!defined("I")) die;
 //статический класс для отправки уведомлений
 class LE_MAIL
 {
+/*
     //отправка текстового письма Mail::send("электронный@адрес", "адрес отправителя", "текст письма", "тема_письма")
     public static function send($address,$sender,$mail_body,$subject)
     {	
@@ -57,57 +58,126 @@ class LE_MAIL
       $multipart .= $message_part."--$boundary--\n"; 
       if(!mail($address, $subject, $multipart, $headers)) {echo "К сожалению, письмо не отправлено"; exit();} 
     }
-     
-     
-    public function gen_message($mailfrom,$mailto,$body,$subject,$file=false)
-    { 
-        $separator = md5(time());
+*/
+    public $eol="\r\n";
+
+    public function encode($body)
+    {
+        return iconv('UTF-8', 'windows-1251//TRANSLIT', $body);
+    }
+    
+    
+    public function subject($subject)
+    {
+        $subject = base64_encode($this->encode($subject));
+        return '=?windows-1251?B?'.$subject.'?=';
+    }
+
+    //type=0 - html, 1 - multipath/mixed
+    public function headers($from,$type,$boundary)
+    {
+        $eol = $this->eol;
+        $sep = $this->separator;
+        //1
+        $headers = "";
+        $headers .="MIME-Version: 1.0".$eol;
         
-        $filename = 'myfile';
-        $path = 'your path goes here';
-        $file = $path . "/" . $filename;
+        //if ($type)
+            $headers .="Content-Type: multipart/mixed; boundary=\"$sep\"\n";
+        //else 
+        //    $headers .="Content-Type: text/html; charset=windows-1251".$eol;
+        
+        $headers .="From: ".$from.$eol;
+       
+    
+        //$headers .= "Content-Transfer-Encoding: 7bit" . $eol;
+        //$headers .= "This is a MIME encoded message." . $eol;
 
-        $mailto = 'mail@mail.com';
-        $subject = 'Subject';
-        $message = 'My message';
+        return $headers;
 
-        $content = file_get_contents($file);
+    }
+    public $separator="qwe112233qwe";
+
+    public function attach_info($path)
+    {
+        $path_parts = pathinfo($path);
+        $filename = is_set($res['filename']) ? $res['filename'] : '';
+        $file_ext = is_set($res['extension']) ? ".".$res['extension'] : '';
+        $file = $filename.$file_ext;
+        $mime = mime_content_type($path);
+        if ($mime===false) $mime="application/octet-stream";
+        return [$file,$mime];
+        
+    }
+    
+    public function attachment($path=null)
+    {
+        if ($path===null || $path===false || !is_file($path)) return false;
+        $eol = $this->eol;
+        $sep = $this->separator;
+
+        list ($file,$mime) = $this->attach_info($path)
+
+        $content = file_get_contents($path);
         $content = chunk_split(base64_encode($content));
-
-        // a random hash will be necessary to send mixed content
-        
-
-        // carriage return type (RFC)
-        $eol = "\r\n";
-
-        // main header (multipart mandatory)
-        $headers = "From: name <test@test.com>" . $eol;
-        $headers .= "MIME-Version: 1.0" . $eol;
-        $headers .= "Content-Type: multipart/mixed; boundary=\"" . $separator . "\"" . $eol;
-        $headers .= "Content-Transfer-Encoding: 7bit" . $eol;
-        $headers .= "This is a MIME encoded message." . $eol;
-
-        // message
-        $body = "--" . $separator . $eol;
-        $body .= "Content-Type: text/plain; charset=\"iso-8859-1\"" . $eol;
-        $body .= "Content-Transfer-Encoding: 8bit" . $eol;
-        $body .= $message . $eol;
-
-        // attachment
-        $body .= "--" . $separator . $eol;
+        $body .= "--" . $sep . $eol;
         $body .= "Content-Type: application/octet-stream; name=\"" . $filename . "\"" . $eol;
         $body .= "Content-Transfer-Encoding: base64" . $eol;
         $body .= "Content-Disposition: attachment" . $eol;
         $body .= $content . $eol;
-        $body .= "--" . $separator . "--";
+        return $body;
+    }
+
+    public function html_wrapper($text)
+    {
+        $html ='<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional //EN">';
+        $html .='<html><head><META http-equiv="Content-Type" content="text/html; charset=windows-1251"></head>';
+        $html .='<body>'.$text.'</body></html>';
+
+        return $html;
+    }
+    
+    public function html_message($text)
+    { 
+        $text = $this->encode($text);
+        $text = $this->html_wrapper($text);
+        $eol = $this->eol;
+        $sep = $this->separator;
+        $body = "--" . $sep . $eol;
+        $body .= 'Content-Type: text/html; charset="windows-1251"'.$eol; 
+        $body .= "Content-Transfer-Encoding: Quot-Printed\n\n".$eol; 
+        //$body .= "Content-Transfer-Encoding: 8bit" . $eol;
+        $body .= $text . $eol;
+        return $body;
+    }
+     
+     
+    public function gen_message($mailfrom,$mailto,$body,$subject,$files=false)
+    { 
+        $this->separator = md5(time());
+        $eol = $this->eol;
+
+        // main header (multipart mandatory)
+        $headers = $this->headers($from,($file!==null),$boundary);
+
+        // message
+        $body = $this->html_message($message);
+        
+
+        if ($files!==false && is_string($files)) $files = [$files];
+        if (is_array($files))
+        {
+            foreach($files as $k=>$path)
+            {
+                $body.=$this->attachment($path);
+            }
+        }
+        
+        $body .= "--" . $this->separator . "--";
 
         //SEND Mail
-        if (mail($mailto, $subject, $body, $headers)) {
-            echo "mail send ... OK"; // or use booleans here
-        } else {
-            echo "mail send ... ERROR!";
-            print_r( error_get_last() );
-        }
+        return mail($mailto, $subject, $body, $headers);
+        
     }
 
 

@@ -1,12 +1,13 @@
 <?php
-/******************************************************************************
-| LE MAIL v0.1 25.08.2021 by Pavel Belyaev, https://github.com/TechResearchRu |
-| данный функционал требует тестирования, распространяется КАКЕСТЬ            |
-******************************************************************************/
+/********************************************************************************
+| LE MAIL v0.1.1 04.09.2021 by Pavel Belyaev, https://github.com/TechResearchRu |
+| данный функционал требует тестирования, распространяется КАКЕСТЬ              |
+********************************************************************************/
 
 class LE_MAIL
 {
-    protected $eol="\r\n", $separator="123LE", $charset="windows-1251", $sep;
+    protected $eol="\r\n", $separator="qwe112233qwe", $charset="windows-1251";
+    protected $sep;
 
     protected function encode($body)
     {
@@ -53,16 +54,17 @@ class LE_MAIL
     protected function html_wrapper($text)
     {
         $html ='<html><head><META http-equiv="Content-Type" content="text/html; charset='.$this->charset.'"></head>';
-        $html .='<body>'.$this->encode($text).'</body></html>';
+        $html .='<body>'.$text.'</body></html>';
         return $html;
     }
     
     protected function html_message($text)
     { 
+        $text = $this->encode($text);
         $text = $this->html_wrapper($text);
         $eol = $this->eol;
         $body = $this->sep.'Content-Type: text/html; charset="'.$this->charset.'"'.$eol; 
-        $body .= "Content-Transfer-Encoding: Quot-Printed\n".$eol;
+        $body .= "Content-Transfer-Encoding: Quot-Printed\n\n".$eol;
         $body .= $text . $eol;
         return $body;
     }

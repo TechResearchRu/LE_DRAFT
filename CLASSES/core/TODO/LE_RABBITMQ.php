@@ -1,4 +1,4 @@
-<?
+<?php
 
 /**
  * TEST BETA, need refactoring
