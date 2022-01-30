@@ -52,9 +52,10 @@ class LE_ALC
 
     private function auth_form($vars)
     {
-        LE::$TPL->mod_cont .= LE::$TPL->fetch('sys/auth',$vars,'main');
         http_response_code(401);
-        LE::$TPL->display();
+        LE::$TPL->fetch2mcont('sys/auth',$vars,'main')->display();
+        //LE::$TPL->mod_cont .= LE::$TPL->fetch('sys/auth',$vars,'main');
+        //LE::$TPL->display();
 
         exit();
     }
