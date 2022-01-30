@@ -150,7 +150,11 @@ textarea:focus {
     display: block;
     padding-top: 8px;
 }
-
+.le_he .le_fl span {
+    width:100%;
+    padding-right:1em;
+    text-align: right;
+}
 
 /*Multi Element Horizontal*/
 

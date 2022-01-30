@@ -5,7 +5,7 @@
 
     <ul class="mp_menu vertical">
 
-        <li class="dropdown"><a href="#">Магазин <i class="lei-dropdown"></i></a>
+        <li class="dropdown"><a href="#">Магазин <i><svg class="lei_dropdown"><use href="#ico_dropdown"></svg></i></a>
             <ul class="dropdown-content">
                 <li><a href="/manager/catalog">Каталог</a></li>
                 <li><a href="/manager/update">Полное обновление</a></li>

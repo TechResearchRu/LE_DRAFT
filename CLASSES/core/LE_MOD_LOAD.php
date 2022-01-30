@@ -1,6 +1,6 @@
 <?php
 class LE_MOD_LOAD {
-    public $m1=false,$m2=false,$space_list=[],$mod_aliases=[];
+    public $m1=false,$m2=false,$space_list=[],$mod_aliases=[],$space=false;
     public $init_path=false,$mod_path=false,$url;
 
     function __construct($autorun=1)
@@ -35,6 +35,8 @@ class LE_MOD_LOAD {
 
 
         if ($this->select_path($space)===false) return false;
+
+        $this->space = $space;
 
         $mod=arr_v(SYSCONF::$DEFAULT_MODULE,$space,false); //default
         if (!empty($mod_in_q)) 

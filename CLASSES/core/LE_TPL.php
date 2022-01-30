@@ -30,6 +30,12 @@ class LE_TPL {
         return ob_get_clean();
     }
 
+    public function fetch2mcont($t,&$vars=array(),$prefix=false,$cache_en=false)
+    {
+        $this->mod_cont .= $this->fetch($t,$vars,$prefix,$cache_en);
+        return $this;
+    }
+
     public function path($tpl_path,$prefix=false) 
 	{		
 		if ($prefix===false) $prefix = $this->prefix;
@@ -70,6 +76,7 @@ class LE_TPL {
 		include($path);	
 		
 	}
+
 
     //static elements
     public $need_st_list=[],$static_list=[],$static_dep=[],$top_st=[],$bottom_st=[];
